@@ -19,7 +19,11 @@ void main(){
     signal(SIGUSR1, hand_reveil);
     /* Construction et envoi d’une question */
     q.id = getpid();
-    q.n = 5; 
+    printf("Entrer le nombre d'entiers que vous voulez recevoir (1 a %d) : ", NMAX);
+        if (scanf("%d", &q.n) != 1 || q.n < 1 || q.n > NMAX) {
+        fprintf(stderr, "Valeur invalide\n");
+        exit(1);
+        } 
     write(fd1, &q, sizeof(struct question));
     /* Attente de la réponse */
     pause();

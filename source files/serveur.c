@@ -25,7 +25,9 @@ void main() {
     while(1) {
         /* lecture d’une question */
         
-        read(fd1, &q, sizeof(struct question));
+        /* Lecture d'une question */
+        if (read(fd1, &q, sizeof(struct question)) != sizeof(struct question))
+            continue;
         /* construction de la réponse */
         if (q.n > NMAX) q.n = NMAX;
         r.id = q.id;
