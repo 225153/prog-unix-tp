@@ -1,8 +1,8 @@
 # Rapport de TP : Communication client/serveur par tubes nommés (FIFO)
 
 **Module :** Programmation sous Unix
-**Nom et prénom :** ______________________
-**Groupe :** ______________________
+**Nom et prénom :** Omar Kharrat et Foued Marzouki
+**Groupe :** 2ING01
 **Date :** 17/11/2026
 
 ---
@@ -89,61 +89,31 @@ Le serveur s'arrête avec `Ctrl+C`. Le handler `fin_serveur` supprime alors les 
 
 *Commande : `./serveur`*
 
-> **[Insérer la capture d'écran ici]**
->
-> &nbsp;
->
-> &nbsp;
->
-> &nbsp;
->
-> &nbsp;
+![Test 1](</home/omar/Pictures/Screenshots/Screenshot from 2026-11-17 19-40-02.png>)
 
-**Commentaire :** ______________________________________________
+**Commentaire :** Le serveur crée `fifo1` et `fifo2`, puis attend la connexion d'un client sans rendre la main. C'est le comportement attendu.
 
 ### Test 2 : exécution d'un client
 
 *Commande : `./client`*
 
-> **[Insérer la capture d'écran ici]**
->
-> &nbsp;
->
-> &nbsp;
->
-> &nbsp;
->
-> &nbsp;
+![Test 2](</home/omar/Pictures/Screenshots/Screenshot from 2026-11-17 19-27-14.png>)
 
-**Commentaire :** ______________________________________________
+**Commentaire :** Le client tire au sort `n` entre 1 et `NMAX`, l'envoie au serveur, puis affiche les `n` entiers reçus, tous compris entre 1 et `NMAX`.
 
 ### Test 3 : plusieurs clients successifs ou simultanés
 
 *Commande : `./client` lancé plusieurs fois*
 
-> **[Insérer la capture d'écran ici]**
->
-> &nbsp;
->
-> &nbsp;
->
-> &nbsp;
->
-> &nbsp;
+![Test 3](</home/omar/Pictures/Screenshots/Screenshot from 2026-11-17 19-31-44.png>)
 
-**Commentaire :** ______________________________________________
+**Commentaire :** Chaque client reçoit sa propre réponse, avec un `n` différent. Le serveur reste actif et traite chaque question.
 
 ### Test 4 : arrêt du serveur avec Ctrl+C
 
-> **[Insérer la capture d'écran ici]**
->
-> &nbsp;
->
-> &nbsp;
->
-> &nbsp;
+![Test 4](</home/omar/Pictures/Screenshots/Screenshot from 2026-11-17 19-32-22.png>)
 
-**Commentaire :** ______________________________________________
+**Commentaire :** Le serveur reçoit `SIGINT` avec `Ctrl+C`. Le handler `fin_serveur` supprime alors `fifo1` et `fifo2`, puis arrête le programme.
 
 ## 7. Conclusion
 
