@@ -42,22 +42,9 @@ struct reponse  { int id; int pid_serveur; int entiers[NMAX]; };
 
 ## 4. Fonctionnement
 
-**Serveur :**
-1. Création de `fifo1` et `fifo2` avec `mkfifo`.
-2. Initialisation du générateur aléatoire avec `srand(getpid())`.
-3. Ouverture des tubes et installation des handlers (`SIGUSR1`, `SIGINT`).
-4. Boucle infinie :
-   - lecture d'une question ;
-   - construction de la réponse avec `n` entiers aléatoires entre 1 et `NMAX` ;
-   - écriture dans `fifo2` ;
-   - envoi de `SIGUSR1` au client dont le PID est `q.id`.
+**Serveur :** création des tubes avec `mkfifo`, `srand(getpid())`, ouverture des tubes, installation des handlers (`SIGUSR1`, `SIGINT`). Puis, en boucle : lecture d'une question, construction de la réponse (`n` entiers aléatoires entre 1 et `NMAX`), écriture dans `fifo2`, envoi de `SIGUSR1` au client (PID `q.id`).
 
-**Client :**
-1. Ouverture des tubes et installation du handler `SIGUSR1`.
-2. Construction de la question : `q.id = getpid()` et `q.n = 1 + rand() % NMAX`.
-3. Envoi dans `fifo1`, puis attente avec `pause()`.
-4. Lecture de la réponse dans `fifo2` et envoi de `SIGUSR1` au serveur.
-5. Affichage des `n` entiers reçus.
+**Client :** ouverture des tubes, installation du handler `SIGUSR1`, question avec `q.id = getpid()` et `q.n = 1 + rand() % NMAX`, envoi dans `fifo1`, attente avec `pause()`, lecture de la réponse dans `fifo2`, envoi de `SIGUSR1` au serveur, affichage des `n` entiers.
 
 ## 5. Compilation et exécution
 
@@ -81,7 +68,7 @@ Le serveur s'arrête avec `Ctrl+C`. Le handler `fin_serveur` supprime alors les 
 
 *Commande : `./serveur`*
 
-<img src="/home/omar/Pictures/Screenshots/Screenshot from 2026-11-17 19-40-02.png" alt="Test 1" width="55%">
+<img src="/home/omar/Pictures/Screenshots/Screenshot from 2026-11-17 19-40-02.png" alt="Test 1" width="100%">
 
 **Commentaire :** Le serveur crée `fifo1` et `fifo2`, puis attend la connexion d'un client sans rendre la main. C'est le comportement attendu.
 
@@ -89,7 +76,7 @@ Le serveur s'arrête avec `Ctrl+C`. Le handler `fin_serveur` supprime alors les 
 
 *Commande : `./client`*
 
-<img src="/home/omar/Pictures/Screenshots/Screenshot from 2026-11-17 19-27-14.png" alt="Test 2" width="55%">
+<img src="/home/omar/Pictures/Screenshots/Screenshot from 2026-11-17 19-27-14.png" alt="Test 2" width="100%">
 
 **Commentaire :** Le client tire au sort `n` entre 1 et `NMAX`, l'envoie au serveur, puis affiche les `n` entiers reçus, tous compris entre 1 et `NMAX`.
 
@@ -97,13 +84,13 @@ Le serveur s'arrête avec `Ctrl+C`. Le handler `fin_serveur` supprime alors les 
 
 *Commande : `./client` lancé plusieurs fois*
 
-<img src="/home/omar/Pictures/Screenshots/Screenshot from 2026-11-17 19-31-44.png" alt="Test 3" width="55%">
+<img src="/home/omar/Pictures/Screenshots/Screenshot from 2026-11-17 19-31-44.png" alt="Test 3" width="100%">
 
 **Commentaire :** Chaque client reçoit sa propre réponse, avec un `n` différent. Le serveur reste actif et traite chaque question.
 
 ### Test 4 : arrêt du serveur avec Ctrl+C
 
-<img src="/home/omar/Pictures/Screenshots/Screenshot from 2026-11-17 19-51-31.png" alt="Test 4" width="55%">
+<img src="/home/omar/Pictures/Screenshots/Screenshot from 2026-11-17 19-51-31.png" alt="Test 4" width="100%">
 
 **Commentaire :** Le serveur reçoit `SIGINT` avec `Ctrl+C`. Le handler `fin_serveur` supprime alors `fifo1` et `fifo2`, puis arrête le programme.
 
