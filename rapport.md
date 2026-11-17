@@ -111,7 +111,7 @@ Le serveur s'arrête avec `Ctrl+C`. Le handler `fin_serveur` supprime alors les 
 
 ### Test 4 : arrêt du serveur avec Ctrl+C
 
-![Test 4](</home/omar/Pictures/Screenshots/Screenshot from 2026-11-17 19-32-22.png>)
+![Test 4](</home/omar/Pictures/Screenshots/Screenshot from 2026-11-17 19-51-31.png>)
 
 **Commentaire :** Le serveur reçoit `SIGINT` avec `Ctrl+C`. Le handler `fin_serveur` supprime alors `fifo1` et `fifo2`, puis arrête le programme.
 
